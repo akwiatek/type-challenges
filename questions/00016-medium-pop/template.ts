@@ -1,1 +1,1 @@
-type Pop<T extends any[]> = any
+type Pop<T extends unknown[]> = T extends [...(infer F), unknown] ? F : [];
