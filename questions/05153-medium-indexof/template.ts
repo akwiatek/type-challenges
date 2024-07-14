@@ -1,1 +1,10 @@
-type IndexOf<T, U> = any
+export type Same<X, Y> =
+  (() => unknown extends X ? 1 : 2) extends
+  (() => unknown extends Y ? 1 : 2) ? true : false
+
+type IndexOf<T, U, Previous extends unknown[] = []> =
+  T extends [infer First, ...infer After]
+    ? Same<First, U> extends true
+      ? Previous['length']
+      : IndexOf<After, U, [...Previous, First]>
+    : -1
